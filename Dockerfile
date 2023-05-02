@@ -26,6 +26,8 @@ RUN apt-get update && apt-get install -y \
     libmemcached-dev \
     nginx
 
+# Install supervisor
+RUN apt-get install -y supervisor
 
 RUN apt-get update && apt-get -y install cron
 
@@ -50,6 +52,7 @@ RUN touch /var/www/storage/logs/laravel.log
 RUN chown -R www:www-data /var/www/storage/logs/laravel.log
 RUN chmod -R 777 /var/www/storage/logs/laravel.log
 
+RUN cp docker/supervisor.conf /etc/supervisord.conf
 RUN cp docker/php.ini /usr/local/etc/php/conf.d/app.ini
 RUN cp docker/nginx.conf /etc/nginx/sites-enabled/default
 
